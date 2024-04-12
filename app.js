@@ -1,6 +1,17 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-app.js";
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-auth.js";
-import { getFirestore,collection, addDoc, getDocs } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-firestore.js";
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  signOut,
+} from "https://www.gstatic.com/firebasejs/10.10.0/firebase-auth.js";
+import {
+  getFirestore,
+  collection,
+  addDoc,
+  getDocs,
+  deleteDoc,
+} from "https://www.gstatic.com/firebasejs/10.10.0/firebase-firestore.js";
 
 // FireBase configuration
 const firebaseConfig = {
@@ -17,7 +28,6 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
 
-
 // login/ signup
 const signup = document.getElementById("signup-form");
 const login = document.getElementById("login-form");
@@ -25,7 +35,7 @@ const showloginForm = document.getElementById("login");
 const showsignupForm = document.getElementById("signup");
 
 //collection
-let Users = collection(db, "Users");
+let users = collection(db, "Users");
 
 // user details
 let singupEmail = document.getElementById("signup-email");
@@ -36,6 +46,7 @@ let signupBtn = document.getElementById("signup-button");
 let email = document.getElementById("email");
 let password = document.getElementById("password");
 let loginbtn = document.getElementById("login-button");
+let signout = document.getElementById("signout");
 
 function showLoginForm() {
   login.style.display = "block";
@@ -51,15 +62,19 @@ function showSignupForm() {
   document.getElementById("login-error").innerText = "";
 }
 
-async function signUp(event){
+async function signUp(event) {
   event.preventDefault();
-    await createUserWithEmailAndPassword(auth, singupEmail.value, signupPass.value)
-    .then(async function(userCredentional){
-        const user = userCredentional.user;
-        console.log(user);
-        event.preventDefault();
-        await addUser();
-        window.location.href = "UsersManagement.html";
+  await createUserWithEmailAndPassword(
+    auth,
+    singupEmail.value,
+    signupPass.value
+  )
+    .then(async function (userCredentional) {
+      const user = userCredentional.user;
+      console.log(user);
+      event.preventDefault();
+      await addUser();
+      window.location.href = "UsersManagement.html";
     })
     .catch((error) => {
       const errorMessage = error.message;
@@ -68,25 +83,24 @@ async function signUp(event){
 }
 
 async function addUser() {
-  await addDoc(Users, {
-  email: singupEmail.value,
-  firstName: firstName.value,
-  lastName: lastName.value
+  await addDoc(users, {
+    email: singupEmail.value,
+    firstName: firstName.value,
+    lastName: lastName.value,
   });
 }
 
-async function loginUser(event){
+async function loginUser(event) {
   event.preventDefault();
   signInWithEmailAndPassword(auth, email.value, password.value)
-  .then((userCredential) => {
-    const user = userCredential.user;
-    window.location.href = "UsersManagement.html";
-  })
-  .catch((error) => {
-    const errorMessage = error.message;
-    displayLoginErrorMessage(errorMessage);
-    
-  });
+    .then((userCredential) => {
+      const user = userCredential.user;
+      window.location.href = "UsersManagement.html";
+    })
+    .catch((error) => {
+      const errorMessage = error.message;
+      displayLoginErrorMessage(errorMessage);
+    });
 }
 
 function displaySignupErrorMessage(message) {
@@ -97,9 +111,77 @@ function displayLoginErrorMessage(message) {
   document.getElementById("login-error").innerText = message;
 }
 
+// async function getUsers(){
+//   const querySnapshot = await getDocs(users);
+//   querySnapshot.forEach((doc) => {
+//     let table = document.getElementById("users");
+//     let row = document.createElement("tr");
+//     row.innerHTML = `
+//       <td>${doc.data().firstName}</td>
+//       <td>${doc.data().lastName}</td>
+//       <td>${doc.data().email}</td>
+//       <td><button onclick="deleteUser('${doc.id}')"><span class="material-symbols-outlined" style="color: black; cursor: pointer;">
+//       delete </span></button></td>`;
+//     table.appendChild(row);
+//   });
+// }
+
+// const querySnapshot = await getDocs(users);
+//   querySnapshot.forEach((doc) => {
+//     let table = document.getElementById("users");
+//     let row = document.createElement("tr");
+//     row.innerHTML = `
+//       <td>${doc.data().firstName}</td>
+//       <td>${doc.data().lastName}</td>
+//       <td>${doc.data().email}</td>
+//       <td><button onclick="deleteUser('${doc.id}')"><span class="material-symbols-outlined" style="color: black; cursor: pointer;">
+//       delete </span></button></td>`;
+//     table.appendChild(row);
+//   });
+
+async function deleteUser(docId){
+  await deleteDoc(doc(users, docId));
+}
+
+// const userSignOut = () => {
+//   signOut(auth)
+//     .then(() => {
+//       console.log("user signed out");
+//       alert("user signed out successfully");
+//     })
+//     .catch((error) => {
+//       // An error happened.
+//       const errorCode = error.code;
+//       const errorMessage = error.message;
+//       console.log(errorCode, errorMessage);
+//       alert(errorMessage);
+//     });
+// };
+
+// async function userSignOut() {
+//   signOut(auth).then(() => {
+//     window.location.href = "index.html";
+//   }).catch((error) => {
+//     alert("ERROR!");
+//   });;
+// }
+
 showloginForm.addEventListener("click", showLoginForm);
 showsignupForm.addEventListener("click", showSignupForm);
 signupBtn.addEventListener("click", signUp);
 loginbtn.addEventListener("click", loginUser);
+signout.addEventListener("click", userSignOut);
 
 
+// const getUsers = await getDocs(users);
+// getUsers.forEach((doc) => {
+//   let table = document.getElementById("users");
+//   let row = document.createElement("tr");
+//   row.innerHTML = `
+//     <td>${doc.data().firstName}</td>
+//     <td>${doc.data().lastName}</td>
+//     <td>${doc.data().email}</td>
+//     <td><button onclick="deleteUser(${doc.id})"><span class="material-symbols-outlined" style="color: black; cursor: pointer;">
+//     delete </span></button></td>`;
+//   table.appendChild(row);
+// });
