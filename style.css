@@ -1,0 +1,138 @@
+body {
+    text-align: center;
+    background-image: url('login-background.webp');
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 100vh;
+    overflow: hidden;
+
+  }
+
+  #login-page {
+    position: absolute;
+    top: 50px;
+    left: 450px;
+    font-family: 'Noto Sans Hebrew', sans-serif;
+    padding: 50px;
+    background-color: rgba(255, 255, 255, 0.3);
+    width: 450px;
+    backdrop-filter: blur(7px);
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.5);
+    border-radius: 65px;
+  }
+  
+  .slide-controls {
+    position: relative;
+    display: flex;
+    height: 50px;
+    width: 100%;
+    overflow: hidden;
+    margin: 30px 0 10px 0;
+    justify-content: space-between;
+    border: 1px solid lightgrey;
+    border-radius: 5px;
+  }
+  
+  .slide-controls .slide {
+    height: 100%;
+    width: 100%;
+    color: #fff;
+    font-size: 18px;
+    font-weight: 500;
+    text-align: center;
+    line-height: 48px;
+    cursor: pointer;
+    z-index: 1;
+    transition: all 0.6s ease;
+  }
+  
+  .slide-controls label.login {
+    color: rgb(11, 41, 80);
+  }
+  
+  .slide-controls .slider-tab {
+    position: absolute;
+    height: 100%;
+    width: 50%;
+    left: 0;
+    z-index: 0;
+    border-radius: 5px;
+    background: rgb(11, 41, 80);
+    transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  }
+  
+  input[type="radio"] {
+    display: none;
+  }
+  
+  #login:checked~.slider-tab {
+    left: 50%;
+  }
+  
+  #login:checked~label.login {
+    color: #fff;
+    cursor: default;
+    user-select: none;
+  }
+  
+  #login:checked~label.signup {
+    color: rgb(11, 41, 80);
+  }
+  
+  #signup:checked~label.login {
+    color: rgb(11, 41, 80);
+  }
+  
+  .loginPage-input {
+    font-family: 'Noto Sans Hebrew', sans-serif;
+    padding: 15px;
+    margin: 5px;
+    width: 250px;
+    opacity: 0.6;
+    border-radius: 10px;
+  }
+  
+  .material-symbols-outlined {
+    color: #F5F5F5;
+    vertical-align: middle;
+    cursor: default;
+  }
+  
+  .loginpage-button {
+    cursor: pointer;
+    font-family: 'Noto Sans Hebrew', sans-serif;
+    background-color: whitesmoke;
+    border: none;
+    color: rgb(11, 41, 80);
+    padding: 15px 32px;
+    text-align: center;
+    display: inline-block;
+    font-size: 16px;
+    border-radius: 12px;
+  }
+  
+  .loginpage-button:hover {
+    background-color: rgb(11, 41, 80);
+    color: white;
+    transition: all 0.5s ease-out;
+  }
+  
+  ::placeholder {
+    font-size: 1em;
+    color: rgb(104, 100, 104);
+    padding: 5px;
+    text-align: right;
+  }
+  
+  #signup-form {
+    display: none;
+  }
+  
+  /* .loginpage-errormsg {
+    width: 100%;
+    font-size: 11%;
+    background-color: red;
+    font-weight: bold;
+    color: white;
+  } */

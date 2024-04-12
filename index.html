@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My favoriTe Site</title>
+    <link href="style.css" rel="stylesheet" type="text/css" />
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Hebrew:wght@200&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+  </head>
+  <body>
+    <div id="login-page">
+      <div class="slide-controls">
+        <input type="radio" name="slide" id="signup"/>
+        <label for="signup" class="slide signup">הרשמה</label>
+        <input type="radio" name="slide" id="login" checked/>
+        <label for="login" class="slide login">כניסה</label>
+        <div class="slider-tab"></div>
+      </div>
+      <br>
+      <form id="login-form">
+        <!-- <p class="loginpage-errormsg" id="loginid-error"></p> -->
+        <input type="text" class="loginPage-input" placeholder="דוא״ל" id="email">
+        <span class="material-symbols-outlined">mail</span>
+        <br>
+        <!-- <p class="loginpage-errormsg" id="loginpass-error"></p> -->
+        <input id="password" type="password" class="loginPage-input" placeholder="סיסמה"/>
+        <span class="material-symbols-outlined">lock</span>
+        <br>
+        <br>
+        <br>
+        <input type="submit" id="login-button" class="loginpage-button" value="התחברות"/>
+        <!-- <br>
+        <br>
+        <p onclick="showForgotPassForm()" id="forgot-pass">?שכחת סיסמה</p> -->
+      </form>
+      <form id="signup-form" class="signup-form-hidden">
+        <!-- <p class="loginpage-errormsg" id="email-error"></p> -->
+        <input type="text" class="loginPage-input" placeholder="כתובת דוא״ל" id="signup-email" />
+        <span class="material-symbols-outlined">mail</span>
+        <!-- <p class="loginpage-errormsg" id="firstname-error"></p> -->
+        <input type="text" class="loginPage-input" placeholder="שם פרטי" id="firstName" />
+        <span class="material-symbols-outlined">badge</span>
+        <!-- <p class="loginpage-errormsg" id="lastname-error"></p> -->
+        <input type="text" class="loginPage-input" placeholder="שם משפחה" id="lastName" />
+        <span class="material-symbols-outlined">badge</span>
+        <!-- <p class="loginpage-errormsg" id="signuppass-error"></p> -->
+        <input type="text" class="loginPage-input" placeholder="סיסמה" id="signup-password" />
+        <span class="material-symbols-outlined">lock</span>
+        <br>
+        <br>
+        <br>
+        <input type="submit" id="signup-button" class="loginpage-button" value="הרשמה" />
+      </form>
+    </div>
+  </body>
+  <script type="module" src="app.js"></script>
+  
+</html>
