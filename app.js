@@ -28,16 +28,15 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
 
-// login/ signup
+// firebase collection
+let users = collection(db, "Users");
+
+// login/ signup page
 const signup = document.getElementById("signup-form");
 const login = document.getElementById("login-form");
 const showloginForm = document.getElementById("login");
 const showsignupForm = document.getElementById("signup");
 
-//collection
-let users = collection(db, "Users");
-
-// user details
 let singupEmail = document.getElementById("signup-email");
 let signupPass = document.getElementById("signup-password");
 let firstName = document.getElementById("firstName");
@@ -46,7 +45,11 @@ let signupBtn = document.getElementById("signup-button");
 let email = document.getElementById("email");
 let password = document.getElementById("password");
 let loginbtn = document.getElementById("login-button");
+
+//dashbord page
 let signout = document.getElementById("signout");
+
+// login/ signup page functions
 
 function showLoginForm() {
   login.style.display = "block";
@@ -111,77 +114,35 @@ function displayLoginErrorMessage(message) {
   document.getElementById("login-error").innerText = message;
 }
 
-// async function getUsers(){
-//   const querySnapshot = await getDocs(users);
-//   querySnapshot.forEach((doc) => {
-//     let table = document.getElementById("users");
-//     let row = document.createElement("tr");
-//     row.innerHTML = `
-//       <td>${doc.data().firstName}</td>
-//       <td>${doc.data().lastName}</td>
-//       <td>${doc.data().email}</td>
-//       <td><button onclick="deleteUser('${doc.id}')"><span class="material-symbols-outlined" style="color: black; cursor: pointer;">
-//       delete </span></button></td>`;
-//     table.appendChild(row);
-//   });
-// }
-
-// const querySnapshot = await getDocs(users);
-//   querySnapshot.forEach((doc) => {
-//     let table = document.getElementById("users");
-//     let row = document.createElement("tr");
-//     row.innerHTML = `
-//       <td>${doc.data().firstName}</td>
-//       <td>${doc.data().lastName}</td>
-//       <td>${doc.data().email}</td>
-//       <td><button onclick="deleteUser('${doc.id}')"><span class="material-symbols-outlined" style="color: black; cursor: pointer;">
-//       delete </span></button></td>`;
-//     table.appendChild(row);
-//   });
+//dashboard functions
+async function getUsers(){
+  const querySnapshot = await getDocs(users);
+  querySnapshot.forEach((doc) => {
+    let table = document.getElementById("users");
+    let row = document.createElement("tr");
+    row.innerHTML = `
+      <td>${doc.data().firstName}</td>
+      <td>${doc.data().lastName}</td>
+      <td>${doc.data().email}</td>
+      <td><button onclick="deleteUser('${doc.id}')"><span class="material-symbols-outlined" style="color: black; cursor: pointer;">
+      delete </span></button></td>`;
+    table.appendChild(row);
+  });
+}
 
 async function deleteUser(docId){
   await deleteDoc(doc(users, docId));
 }
 
-// const userSignOut = () => {
-//   signOut(auth)
-//     .then(() => {
-//       console.log("user signed out");
-//       alert("user signed out successfully");
-//     })
-//     .catch((error) => {
-//       // An error happened.
-//       const errorCode = error.code;
-//       const errorMessage = error.message;
-//       console.log(errorCode, errorMessage);
-//       alert(errorMessage);
-//     });
-// };
-
-// async function userSignOut() {
-//   signOut(auth).then(() => {
-//     window.location.href = "index.html";
-//   }).catch((error) => {
-//     alert("ERROR!");
-//   });;
-// }
+async function userSignOut() {
+  await signOut(auth)
+    .then(() => {
+      window.location.href = "index.html";
+    });
+}
 
 showloginForm.addEventListener("click", showLoginForm);
 showsignupForm.addEventListener("click", showSignupForm);
 signupBtn.addEventListener("click", signUp);
 loginbtn.addEventListener("click", loginUser);
 signout.addEventListener("click", userSignOut);
-
-
-// const getUsers = await getDocs(users);
-// getUsers.forEach((doc) => {
-//   let table = document.getElementById("users");
-//   let row = document.createElement("tr");
-//   row.innerHTML = `
-//     <td>${doc.data().firstName}</td>
-//     <td>${doc.data().lastName}</td>
-//     <td>${doc.data().email}</td>
-//     <td><button onclick="deleteUser(${doc.id})"><span class="material-symbols-outlined" style="color: black; cursor: pointer;">
-//     delete </span></button></td>`;
-//   table.appendChild(row);
-// });
