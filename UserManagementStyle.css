@@ -1,0 +1,79 @@
+body {
+    background-color: #F5F5F5;
+  }
+  
+  #toolbar {
+    background: linear-gradient(to left bottom, rgb(11, 41, 80), rgb(61, 43, 64) 90%);
+    height: 8%;
+    vertical-align: middle;
+    padding: 0%;
+    position: fixed;
+    top: 0%;
+    left: 0%;
+    right: 0%;
+    direction: rtl;
+  }
+  
+  .material-symbols-outlined {
+    color: #ddd;
+    cursor: default;
+  }
+  
+  #logout {
+    position: absolute;
+    left: 5px;
+    margin: 5px;
+    font-size: 48px;
+    font-variation-settings: 'OPSZ' 52;
+    color: #ddd;
+    cursor: pointer;
+    font-size: 48px;
+  }
+
+  #logout:hover {
+    background-color: #ddd;
+    opacity: 0.2;
+    border-radius: 10px;
+    color: rgb(11, 41, 80);
+    cursor: pointer;
+  }
+
+  #welcome-msg {
+    position: absolute;
+    right: 270px;
+    color: #ddd;
+    font-family: 'Noto Sans Hebrew', sans-serif;
+    font-weight: bolder;
+  }
+
+  #table-wrapper {
+    width: 100%;
+    position: fixed;
+    top: 70px;
+    direction: rtl;
+  }
+  
+  #users {
+    border-collapse: collapse;
+    font-family: 'Noto Sans Hebrew', sans-serif;
+  }
+  
+  #users th {
+    font-weight: bolder;
+    background-color: rgb(11, 41, 80);
+    color: #ddd;
+    padding: 15px;
+  }
+  
+  #users th,td {
+    height: 1px;
+    text-align: center;
+    width: 1%;
+    border-right: 1px solid #ddd;
+    border-left: 1px solid #ddd;
+  }
+  
+  #users td {
+    border-bottom: 1px solid #ddd;
+    padding: 5px;
+  }

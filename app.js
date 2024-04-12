@@ -1,6 +1,6 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-app.js";
-import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-auth.js";
-import { getFirestore,collection, addDoc } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-firestore.js";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-auth.js";
+import { getFirestore,collection, addDoc, getDocs } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-firestore.js";
 
 // FireBase configuration
 const firebaseConfig = {
@@ -33,17 +33,22 @@ let signupPass = document.getElementById("signup-password");
 let firstName = document.getElementById("firstName");
 let lastName = document.getElementById("lastName");
 let signupBtn = document.getElementById("signup-button");
+let email = document.getElementById("email");
+let password = document.getElementById("password");
+let loginbtn = document.getElementById("login-button");
 
 function showLoginForm() {
   login.style.display = "block";
   signup.style.display = "none";
   signup.reset();
+  document.getElementById("signup-error").innerText = "";
 }
 
 function showSignupForm() {
   signup.style.display = "block";
   login.style.display = "none";
   login.reset();
+  document.getElementById("login-error").innerText = "";
 }
 
 async function signUp(event){
@@ -56,6 +61,10 @@ async function signUp(event){
         await addUser();
         window.location.href = "UsersManagement.html";
     })
+    .catch((error) => {
+      const errorMessage = error.message;
+      displaySignupErrorMessage(errorMessage);
+    });
 }
 
 async function addUser() {
@@ -66,7 +75,31 @@ async function addUser() {
   });
 }
 
+async function loginUser(event){
+  event.preventDefault();
+  signInWithEmailAndPassword(auth, email.value, password.value)
+  .then((userCredential) => {
+    const user = userCredential.user;
+    window.location.href = "UsersManagement.html";
+  })
+  .catch((error) => {
+    const errorMessage = error.message;
+    displayLoginErrorMessage(errorMessage);
+    
+  });
+}
+
+function displaySignupErrorMessage(message) {
+  document.getElementById("signup-error").innerText = message;
+}
+
+function displayLoginErrorMessage(message) {
+  document.getElementById("login-error").innerText = message;
+}
+
 showloginForm.addEventListener("click", showLoginForm);
 showsignupForm.addEventListener("click", showSignupForm);
 signupBtn.addEventListener("click", signUp);
+loginbtn.addEventListener("click", loginUser);
+
 
