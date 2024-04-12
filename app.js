@@ -48,25 +48,25 @@ function showSignupForm() {
 
 async function signUp(event){
   event.preventDefault();
-    createUserWithEmailAndPassword(auth, singupEmail.value, signupPass.value)
-    .then(function(userCredentional){
+    await createUserWithEmailAndPassword(auth, singupEmail.value, signupPass.value)
+    .then(async function(userCredentional){
         const user = userCredentional.user;
         console.log(user);
         event.preventDefault();
+        await addUser();
         window.location.href = "UsersManagement.html";
     })
 }
 
-function addDoc(collection(db, "Users"), {
+async function addUser() {
+  await addDoc(Users, {
   email: singupEmail.value,
   firstName: firstName.value,
   lastName: lastName.value
-});
-  
+  });
+}
 
 showloginForm.addEventListener("click", showLoginForm);
 showsignupForm.addEventListener("click", showSignupForm);
 signupBtn.addEventListener("click", signUp);
-// signupBtn.addEventListener("click", User);
-
 
