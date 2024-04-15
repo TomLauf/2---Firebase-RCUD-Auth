@@ -20,7 +20,7 @@ const firebaseConfig = {
   projectId: "onodemo-504d1",
   storageBucket: "onodemo-504d1.appspot.com",
   messagingSenderId: "60463537473",
-  appId: "1:60463537473:web:fcae2b1a518f8f2dd695c0",
+  appId: "1:60463537473:web:fcae2b1a518f8f2dd695c0"
 };
 
 // Initialize Firebase
@@ -47,10 +47,9 @@ let password = document.getElementById("password");
 let loginbtn = document.getElementById("login-button");
 
 //dashbord page
-let signout = document.getElementById("signout");
+let signout = document.getElementById("signoutlogo");
 
 // login/ signup page functions
-
 function showLoginForm() {
   login.style.display = "block";
   signup.style.display = "none";
@@ -115,7 +114,7 @@ function displayLoginErrorMessage(message) {
 }
 
 //dashboard functions
-async function getUsers(){
+async function getUsers() {
   const querySnapshot = await getDocs(users);
   querySnapshot.forEach((doc) => {
     let table = document.getElementById("users");
@@ -124,22 +123,25 @@ async function getUsers(){
       <td>${doc.data().firstName}</td>
       <td>${doc.data().lastName}</td>
       <td>${doc.data().email}</td>
-      <td><button onclick="deleteUser('${doc.id}')"><span class="material-symbols-outlined" style="color: black; cursor: pointer;">
+      <td><button onclick="deleteUser('${
+        doc.id
+      }')"><span class="material-symbols-outlined" style="color: black; cursor: pointer;">
       delete </span></button></td>`;
     table.appendChild(row);
   });
 }
 
-async function deleteUser(docId){
+async function deleteUser(docId) {
   await deleteDoc(doc(users, docId));
 }
 
-async function userSignOut() {
-  await signOut(auth)
-    .then(() => {
+function userSignOut() {
+    signOut(auth).then(() => {
       window.location.href = "index.html";
+    }).catch(error => {
+      console.error("Error signing out:", error);
     });
-}
+  }
 
 showloginForm.addEventListener("click", showLoginForm);
 showsignupForm.addEventListener("click", showSignupForm);

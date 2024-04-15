@@ -19,7 +19,7 @@ body {
     cursor: default;
   }
   
-  #signout {
+  #signoutlogo {
     position: absolute;
     left: 5px;
     margin: 5px;
@@ -30,7 +30,7 @@ body {
     font-size: 48px;
   }
 
-  #signout:hover {
+  #signoutlogo:hover {
     background-color: #ddd;
     opacity: 0.2;
     border-radius: 10px;
